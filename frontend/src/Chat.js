@@ -1,12 +1,16 @@
 import React from "react";
 import "./Chat.css";
 import { IconButton, Avatar } from "@material-ui/core";
-import { AttachFile, MoreVert, SearchOutlined } from "@material-ui/icons";
+import {
+  AttachFile,
+  Message,
+  MoreVert,
+  SearchOutlined,
+} from "@material-ui/icons";
 import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon";
-import MicIcon from "@material-ui/icons/Mic"
+import MicIcon from "@material-ui/icons/Mic";
 
-
-function Chat() {
+function Chat({message}) {
   return (
     <div className="chat">
       <div className="chat__header">
@@ -28,10 +32,16 @@ function Chat() {
         </div>
       </div>
       <div className="chat__body">
-        <p className="chat__message">
-          <span className="chat__name">Omii</span>This is message
-          <span className="chat__timestamp">{new Date().toUTCString()}</span>
-        </p>
+        {message.map((message) => (
+          <p
+            className={`chat__message ${message.received && "chat__reciever"}`}
+          >
+            <span className="chat__name">{message.name}</span>
+            {message.message}
+            <span className="chat__timestamp">{message.timestamp}</span>
+          </p>
+        ))}
+
         <p className="chat__message chat__reciever">
           <span className="chat__name">Omii</span>This is message
           <span className="chat__timestamp">{new Date().toUTCString()}</span>
@@ -47,7 +57,7 @@ function Chat() {
           <input placeholder="" type="text" />
           <button type="submit">Send a message</button>
         </form>
-        <MicIcon/>
+        <MicIcon />
       </div>
     </div>
   );
