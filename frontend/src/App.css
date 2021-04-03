@@ -1,8 +1,8 @@
 .app {
   display: grid;
   /* place-items: center; */
-  height: 100vh;
-  width: 100vw;
+  /* height: 100vh; */
+  /* width: 100vw; */
   background-color: #dadbd3;
 }
 
@@ -10,8 +10,8 @@
   display: flex;
   background-color: #ededed;
   /* margin-top: -50px; */
-  /* height: 100vh; */
+  height: 100vh;
   /* width: 100vh; */
-  /* box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.75); */
+  box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.75);
 }
 

@@ -3,14 +3,14 @@ import "./App.css";
 import Sidebar from "./Sidebar.js";
 import Chat from "./Chat";
 import Pusher from "pusher-js";
-import axios from "axios";
+import axios from "./axios";
 
 function App() {
   const [message, setMessage] = useState([]);
 
   useEffect(() => {
     axios.get("/messages/sync").then((response) => {
-      console.log(response.data);
+      // console.log(response.data);
       setMessage(response.data);
     });
   }, []);
@@ -22,7 +22,7 @@ function App() {
 
     const channel = pusher.subscribe("messages");
     channel.bind("inserted", (data) => {
-      alert(JSON.stringify(data));
+      // alert(JSON.stringify(data));
       setMessage([...message, data]);
     });
 

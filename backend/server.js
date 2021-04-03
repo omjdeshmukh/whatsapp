@@ -17,15 +17,16 @@ const pusher = new Pusher({
   useTLS: true,
 });
 
+
 // middleware
 app.use(express.json());
-app.use(cors);
+// app.use(cors);
 
-// app.use((req, res, next) => {
-//   res.setHeader("Access-Control-Allow-Origin", "*");
-//   res.setHeader("Access-Control-Allow-Headers", "*");
-//   next();
-// });
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Headers", "*");
+  next();
+});
 
 // DB config
 const connection_url =
@@ -44,19 +45,19 @@ db.once("open", () => {
 
   const msgCollection = db.collection("messagecontents");
   const changeStream = msgCollection.watch();
-  console.log(msgCollection);
+  console.log(msgCollection);  
 
   changeStream.on("change", (change) => {
-    console.log(change);
+    console.log( "A change occured", change);
 
     if (change.operationType === "insert") {
-      const messageDetailes = change.fullDocument;
+      const messageDetails = change.fullDocument;
       pusher.trigger("messages", "inserted", {
-        name: messageDetailes.name,
-        message: messageDetailes.message,
-        timestamp: messageDetailes.timestamp,
-        received: messageDetailes.received,
-      });
+        name: messageDetails.name,
+        message: messageDetails.message,
+        timestamp: messageDetails.timestamp,
+        received: messageDetails.received,
+      }); 
     } else {
       console.log("Error triggering Pusher");
     }
